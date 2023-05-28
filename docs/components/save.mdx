@@ -1,0 +1,66 @@
+---
+id: save
+title: Командата save
+slug: /components/save
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+case "save":
+    if (parts.length >= 3) {
+        String id = parts[1];
+        String filename = parts[2];
+        NFA nfa = nfaFileManager.nfas.get(id);
+        if (nfa != null) {
+            try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
+                outputStream.writeObject(nfa);
+                System.out.println("NFA saved successfully.");
+            } catch (IOException e) {
+                System.out.println("Error saving NFA: " + e.getMessage());
+            }
+        } else {
+            System.out.println("NFA with ID " + id + " not found.");
+        }
+    } else {
+        System.out.println("Invalid command. Usage: save <id> <filename>");
+    }
+    break;
+```
+
+### Как работи
+
+Ако командата съдържа поне три аргумента (parts.length >= 3), извлича се вторият аргумент като идентификатор на NFA (String id = parts[1]) и третият аргумент като име на файл (String filename = parts[2]).
+
+След това се проверява дали съществува NFA със зададения идентификатор в nfaFileManager.nfas (NFA nfa = nfaFileManager.nfas.get(id)). Ако съществува, се изпълнява блокът на код вътре в условието.
+
+В блока на код се създава нов ObjectOutputStream с FileOutputStream, който е отговорен за записа на обекта във файл. Обектът, който се записва, е съответният NFA (nfa). След записа на обекта, се извежда съобщение за успешно запазване на NFA във файл: "NFA saved successfully.".
+
+:::danger
+
+Ако възникне грешка по време на записа, се хваща изключението IOException и се извежда съобщение за грешка: `Error saving NFA: ` + e.getMessage().
+:::
+
+:::info
+
+Ако не съществува NFA със зададения идентификатор, се извежда съобщение, че NFA със зададения идентификатор не е намерен: `NFA with ID ` + id + ` not found.`.
+:::
+
+<BrowserWindow url={`Пример за save`}>
+Enter command: save nfa
+
+Invalid command. Usage: save id filename
+
+Enter command: save NFA.t
+
+Invalid command. Usage: save id filename
+
+Enter command: save NFA.txt
+
+Invalid command. Usage: save id filename
+
+Enter command: save nfa1 NFA.txt
+
+NFA saved successfully.
+
+</BrowserWindow>

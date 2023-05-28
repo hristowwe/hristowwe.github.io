@@ -1,0 +1,42 @@
+---
+id: create
+title: Командата create
+slug: /components/create
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+case create:
+    if (parts.length >= 3) {
+                String id = parts[1];
+                NFA nfa = new NFA();
+             nfa.setInitialState(Integer.parseInt(parts[2]));
+                nfaFileManager.nfas.put(id, nfa);
+                 System.out.println(`NFA created with ID: ` + id);
+              } else {
+                  System.out.println(`Invalid command. Usage: create <id> <initial state>`);
+                  }
+```
+
+### Как работи
+
+Ако командата съдържа поне три аргумента (parts.length >= 3), извлича се вторият аргумент като идентификатор на новия NFA . Създава се нов обект от тип NFA (NFA nfa = new NFA()). След това се извиква методът setInitialState(int state) на обекта nfa, като му се подава третият аргумент, преобразуван до цяло число (nfa.setInitialState(Integer.parseInt(parts[2]))). Това установява началното състояние на новия NFA.
+
+След като са извършени горните действия, новият NFA се добавя към nfaFileManager.nfas с идентификатора id (nfaFileManager.nfas.put(id, nfa)). Накрая, се извежда съобщение за успешно създадения NFA със съответния идентификатор: `NFA created with ID: ` + id.
+
+:::caution
+Ако командата не е зададена правилно с поне три аргумента, извежда се съобщение за невалидна команда и правилното използване на командата: `Invalid command. Usage: create <id> <initial state>`. Това се случва в случай, че не са зададени достатъчно аргументи, включително идентификатор и начално състояние на новия NFA.
+:::
+
+<BrowserWindow url={`Пример за create`}>
+
+Enter command: create nfa1
+
+Invalid command. Usage: create id initial state
+
+Enter command: create nfa1 0
+
+NFA created with ID: nfa1
+
+</BrowserWindow>

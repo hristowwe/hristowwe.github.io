@@ -1,0 +1,63 @@
+---
+id: transitions
+title: Командата transitions
+slug: /modal/transitions
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+     case "transition":
+    if (parts.length >= 5) {
+
+        String id = parts[1];
+        NFA nfa = nfaFileManager.nfas.get(id);
+       if (nfa != null) {
+         int currentState;
+         Integer currect = Integer.parseInt(parts[2]);
+        if(nfa.firstTransition && nfa.getInitialState() != currect) {
+          currentState = nfa.getInitialState();
+        }
+        else
+        {
+           currentState = Integer.parseInt(parts[2]);
+        }
+        char symbol = parts[3].charAt(0);
+        int nextState = Integer.parseInt(parts[4]);
+
+            nfa.addTransition(currentState, symbol, nextState);
+            if(checkState(scanner, nextState))
+                nfa.addFinalState(nextState);
+
+          } else {
+            System.out.println("NFA with ID " + id + " not found.");
+            }
+          } else {
+            System.out.println("Invalid command. Usage: transition <id> <current state> <symbol> <next state>");
+         }
+         break;
+```
+
+### Как работи
+
+За командата `transition` се проверява дали има достатъчно аргументи (поне 5). След това се извлича идентификаторът на NFA от входните данни и се проверява дали такъв NFA съществува в nfaFileManager. Ако NFA със съответния идентификатор съществува, се извършват следните действия:
+
+Извлича се текущото състояние (currentState) от входните данни. Ако nfa.firstTransition е истина и началното състояние на NFA не съвпада с текущото състояние (currect), тогава се използва началното състояние на NFA като текущо състояние.
+Извлича се символът (symbol) от входните данни, като се вземе първият символ от третия аргумент (parts[3]).
+Извлича се следващото състояние (nextState) от входните данни.
+Извиква се методът addTransition() на NFA обекта, подадени се текущото състояние, символът и следващото състояние.
+Проверява се дали потребителят желае следващото състояние да бъде финално чрез използване на метода checkState(). Ако потребителят отговори с `y` (да), се добавя следващото състояние като финално състояние чрез метода addFinalState().
+Ако идентификаторът на NFA не съществува в nfaFileManager или командата е невалидна, се извежда съответно съобщение за грешка.
+
+Този код позволява на потребителя да добавя преходи в NFA чрез въвеждане на командата `transition` и необходимите аргументи. Ако командата е валидна и NFA със съответния идентификатор съществува, се добавя преход от текущото състояние до следващото състояние с дадения символ. Потребителят има възможност да маркира следващото състояние като финално с въпрос, който се изисква да отговори с "y" или "n".
+
+<BrowserWindow url={`Пример за transition`}>
+  Enter command: transition nfa1 0 a 2 
+  
+  Transition added to NFA Do you want this (2) integer to be the final state? (Y/N): n
+  
+   Enter command: print nfa1
+
+Transition: 0 -> 2 (a)
+
+</BrowserWindow>

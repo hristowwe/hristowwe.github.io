@@ -1,0 +1,40 @@
+---
+id: open
+title: Командата open
+slug: /components/open
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+ case `open`:
+     if (parts.length >= 2) {
+         String filename = parts[1];
+          nfaFileManager.open(filename);
+      } else {
+          System.out.println(`Invalid command. Usage: open <filename>`);
+      }
+```
+
+### Как работи
+
+Този код представлява част от програма или метод, който обработва командата `open` за отваряне на NFA (недетерминиран автомат) от файл.
+
+Ако командата съдържа поне два аргумента (parts.length >= 2), извлича се вторият аргумент като име на файл . След това се извиква методът open(String filename) на обекта nfaFileManager, който е отговорен за управлението на NFA файлове. Подаденото име на файл се предава на метода за да бъде отворен и зареден съответния NFA от файла.
+
+Ако командата не е зададена правилно с два аргумента, извежда се съобщение за невалидна команда и правилното използване на командата: `Invalid command. Usage: open <filename>`. Това се случва в случай, че не е зададено име на файл, което трябва да бъде предоставено като аргумент след ключовата дума `open`.
+:::tip
+При отварянето на фалйла автоматично се задават ид-тата на автоматите
+:::
+
+<BrowserWindow url={"Пример за open"}>
+
+Enter command: open hgffhg
+
+Error opening NFA: hgffhg (The system cannot find the file specified)
+
+Enter command: open NFA.txt
+
+Error opening NFA: Transition
+
+</BrowserWindow>

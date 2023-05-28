@@ -1,0 +1,27 @@
+---
+id: list
+title: Командата list
+slug: /modal/list
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+case "list":
+         nfaFileManager.list();
+         break;
+```
+
+### Как работи
+
+За командата "list" се извиква методът list() на обекта nfaFileManager, който отговаря за управлението на NFAs (недетерминирани краен автомат) и извежда списък с наличните NFAs.
+Този код позволява на потребителя да изведе списък с наличните NFAs в системата. Той извиква методът list() на обекта nfaFileManager, който отговаря за управлението на NFAs и отпечатва списъка с идентификаторите на наличните NFAs.
+
+<BrowserWindow url={`Пример за list`}>
+Enter command: list
+
+Available NFAs:
+
+nfa1
+
+</BrowserWindow>

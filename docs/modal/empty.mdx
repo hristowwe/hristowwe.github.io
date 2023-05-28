@@ -1,0 +1,22 @@
+---
+id: empty
+title: Командата empty
+slug: /modal/empty
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+      case "empty":
+                    if (parts.length >= 2) {
+                        String id = parts[1];
+                        nfaFileManager.empty(id);
+                    } else {
+                        System.out.println("Invalid command. Usage: empty <id>");
+                    }
+                    break;
+```
+
+### Как работи
+
+Този код позволява на потребителя да провери дали езикът на конкретен NFA е празен чрез въвеждане на команда "empty" и идентификатор на NFA. Ако командата е валидна, се извежда дали езикът на NFA е празен или не. В противен случай се извежда съобщение за невалидна команда и правилно използване на команда

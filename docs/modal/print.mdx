@@ -1,0 +1,27 @@
+---
+id: print
+title: Командата print
+slug: /modal/print
+---
+
+import BrowserWindow from "@site/components/BrowserWindow";
+
+```js
+             case "print":
+                    if (parts.length >= 2) {
+                        String id = parts[1];
+                        nfaFileManager.print(id);
+                    } else {
+                        System.out.println("Invalid command. Usage: print <id>");
+                    }
+                    break;
+```
+
+### Как работи
+
+За командата `print` се проверява дали има достатъчно аргументи (поне 2), след което се извлича идентификаторът на NFA от входните данни. След това се извиква методът print() на обекта nfaFileManager с подадения идентификатор, който отговаря за управлението на NFAs (недетерминирани краен автомат) и извежда транзициите на съответния NFA.
+Този код позволява на потребителя да изведе транзициите на конкретен NFA чрез въвеждане на команда `print` и идентификатор на NFA. Ако командата е валидна, транзициите на NFA се отпечатват. В противен случай се извежда съобщение за невалидна команда и правилно използване на командата.
+
+<BrowserWindow url={`Пример за print`}>
+  Enter command: print nfa1 Transition: 0 -> 2 (a) Enter command:
+</BrowserWindow>
