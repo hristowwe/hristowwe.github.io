@@ -3,46 +3,115 @@ id: intro
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-Let's discover **Docusaurus in less than 5 minutes**.
+# ВЪВЕДЕНИЕ
 
-## Getting Started
+## КАКВО Е НКА
 
-Get started by **creating a new site**.
+Недеретерминиран краен автомат (НКА) е математичен модел за компютърен автомат, който може да се използва за разпознаване на редица от символи или регулярен език. В сравнение с детерминираните краени автомати (ДКА), които имат точно едно следващо състояние за всяка комбинация от текущо състояние и входен символ, НКА имат възможност да имат повече от едно следващо състояние за дадена комбинация от състояние и символ. Това ги прави по-изразителни от ДКА.
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## АНАЛИЗ НА КОДА
 
-### What you'll need
+Този код представлява имплементация на недетерминиран краен автомат (NFA) и негово управление чрез файлов мениджър. Нека разгледаме анализа на кода:
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+Първоначално, кодът дефинира два класа: Transition и NFA. Класът Transition представлява преход в автомата, като има две променливи - символ и следващо състояние. Класът NFA представлява самия недетерминиран краен автомат и съдържа преходите, началното състояние и множество от финални състояния.
 
-## Generate a new site
+NFA има методи за добавяне на преход, задаване на начално състояние, добавяне на финално състояние, проверка дали езикът е празен и извеждане на преходите. Методът addTransition добавя нов преход към NFA, като проверява за дубликати преди добавянето. Методът isEmptyLanguage проверява дали езикът на NFA е празен, като използва DFS (Depth-First Search) алгоритъм за откриване на достижими състояния. Методът printTransitions просто извежда всички преходи на конзолата.
 
-Generate a new Docusaurus site using the **classic template**.
+След това кодът дефинира класа NFAFileManager, който служи за управление на NFA автоматите чрез файлов мениджър. Той поддържа методи за отваряне на NFA от файл, запазване на NFA в файл, извеждане на списък с наличните NFA и извеждане на преходите на конкретен NFA.
 
-The classic template will automatically be added to your project after you run the command:
+В главния клас NFAProgram се създава инстанция на NFA и се извършва тестване на различни операции. В текущата имплементация, той създава нов NFA автомат, добавя финално състояние и проверява дали езикът на автомата е празен.
 
-```bash
-npm init docusaurus@latest my-website classic
+## Принцип на действие
+
+<details>
+  <summary>Дефиниране на класовете Transition, NFA и NFAFileManager</summary>
+  <div>
+    <div>В началото на програмата са дефинирани три класа - Transition, NFA и NFAFileManager. Transition представлява преход между два състояния в Недетерминиран автомат (NFA). NFA представлява самия Недетерминиран автомат и съдържа информация за преходите, началното състояние и финалните състояния. NFAFileManager е клас, който управлява управлението на NFA обекти, като позволява отваряне, съхранение, извеждане на информация и други операции.</div>
+  </div>
+</details>
+<details>
+  <summary>Дефиниране на класа Transition</summary>
+  <div>
+    <div>: Класът Transition е дефиниран като има два приватни полета - symbol (символ, свързан с прехода) и nextState (следващото състояние). Има публичен конструктор, който инициализира полетата, и публични методи за достъп до полетата.</div>
+  </div>
+</details>
+<details>
+  <summary>Дефиниране на класа NFA</summary>
+  <div>
+    <div> Класът NFA представлява Недетерминиран автомат и има следните полета - transitions (мап, който съхранява преходите за всяко състояние), initialState (началното състояние) и finalStates (списък от финални състояния). Класът има конструктор, който инициализира полетата, методи за добавяне на преход, начално състояние и финално състояние, метод за проверка дали езикът е празен, и метод за извеждане на преходите.</div>
+  </div>
+</details>
+<details>
+  <summary>Дефиниране на класа NFAFileManager</summary>
+  <div>
+    <div> Класът NFAFileManager е отговорен за управлението на NFA обекти. Той съдържа поле nfas, което е мап, съхраняващо ID-тата и съответните NFA обекти, и поле nextId, което се използва за генериране на уникални ID-та за новите NFA обекти. Класът има методи за отваряне на NFA от файл, съхраняване на NFA във файл, извеждане на списък с наличните NFAs и извеждане на преходите на конкретен NFA.</div>
+  </div>
+</details>
+<details>
+  <summary>Дефиниране на функциите parseTransition, parseInitialState, parseFinalStates, parseNFA</summary>
+  <div>
+    <div> Тези функции са отговорни за парсването на информацията от текстовия файл и създаването на съответните обекти (Transition, NFA, начално състояние, финални състояния).</div>
+  </div>
+</details>
+
+## Обработка на грешки
+
+В предоставения код се използва конструкцията try-catch за откриване и обработка на грешки. Това е механизъм на обработка на изключения, който позволява на програмата да се справи с непредвидени ситуации и да предприеме подходящи действия.
+
+В метода _open_ на класа NFAFileManager:
+
+```js
+try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
+    // Код за четене на NFA обект от файл
+} catch (IOException | ClassNotFoundException e) {
+    System.out.println("Error opening NFA: " + e.getMessage());
+}
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+:::danger
+Тук се опитва да се отвори и прочете NFA обект от файл. В случай на грешка при отварянето на файла или прочитането на обекта, се хващат изключения от типовете IOException и ClassNotFoundException. При хвърлено изключение се изпълнява блока в catch секцията, където се извежда съобщение за грешката.
+:::
+В метода save на класа NFAFileManager:
 
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
+```js
+try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("NFA.txt"))) {
+    // Код за записване на NFA обект във файл
+} catch (IOException e) {
+    System.out.println("Error saving NFA: " + e.getMessage());
+}
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+:::danger
+Тук се опитва да се запише NFA обект във файл. В случай на грешка при отварянето на файла или записването на обекта, се хваща изключение от типа IOException. При хвърлено изключение се изпълнява блока в catch секцията, където се извежда съобщение за грешката.
+:::
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+## ПАКЕТИ
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+<Tabs>
+  <TabItem value="java.io" label="java.io" default>
+Използва се за работа с входно/изходни операции, като четене и записване на обекти във файлове.  
+</TabItem>
+  <TabItem value="java.util" label="java.util">
+   Използва се за работа с различни структури от данни като HashMap, HashSet, Map и Set, които се използват за съхранение на транзициите и състоянията на NFA (недетерминиран краен автомат).
+  </TabItem>
+  <TabItem value="java.lang" label="java.lang">
+   Включен по подразбиране и предоставя базови класове и функционалности, които се използват в Java програми.
+  </TabItem>  
+  <TabItem value="java.io.Serializable" label="java.io.Serializable">
+   Използва се за обозначаване на класовете Transition, NFA и NFAFileManager като сериализируеми, което позволява техните обекти да бъдат преобразувани в последователност от байтове и да бъдат записвани и възстановявани от файлове или прехвърляни по мрежата.
+  </TabItem>
+    <TabItem value="java.io.FileInputStream" label="java.io.FileInputStream">
+     Класовете от java.io пакета, които се използват за работа с файлове и сериализация на обекти.
+  </TabItem>
+    <TabItem value="java.util.Collections" label="java.util.Collections">
+    Клас от java.util пакета, използван за работа с колекции и операции като disjoint (проверка за безсечност на две колекции).
+java.util.HashMap, java.util.HashSet: Класовете от java.util пакета, използвани за съхранение на транзициите и състоянията на NFA.
+  </TabItem>
+    <TabItem value="java.util.Map" label="java.util.Map">
+    Интерфейси от java.util пакета, използвани за деклариране на променливи и параметри като MapInteger, Set, Set.
+java.lang.Integer, java.lang.Character, java.lang.String: Класове от java.lang пакета, които предоставят работа със стандартни типове данни като цели числа, символи и низове.
+  </TabItem>
+</Tabs>
