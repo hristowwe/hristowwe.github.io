@@ -1,0 +1,3 @@
+Sitemap: https://rypeapp.eu/znam/index.html/sitemap.xml
+User-agent: *
+Disallow:
