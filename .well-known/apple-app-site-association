@@ -1,0 +1,23 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "NS6YHDYLXH.com.prororype.znam",
+        "paths": [
+          "/buy/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "NS6YHDYLXH.com.prororype.znam"
+    ]
+  },
+  "activitycontinuation": {
+    "apps": [
+      "NS6YHDYLXH.com.prororype.znam"
+    ]
+  }
+}
